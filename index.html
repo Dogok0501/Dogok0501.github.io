@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="assets/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superwave Studio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">
+                <img src="assets/team_logo.png" alt="SuperWave Studio" class="logo-img">
+            </a>
+            <div class="language-selector">
+                <button class="language-btn" id="languageBtn">KR</button>
+                <div class="language-dropdown" id="languageDropdown">
+                    <button class="language-option" data-lang="kr">한국어</button>
+                    <button class="language-option" data-lang="jp">日本語</button>
+                    <button class="language-option" data-lang="en">English</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <video autoplay muted loop playsinline preload="auto" class="hero-bg-video">
+                <source src="assets/pv.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <div class="hero-logo">
+                    <img src="assets/game_title_white.png" alt="SuperWave Studio" class="hero-logo-img">
+                </div>
+                <!--<a href="#who-are-we" class="demo-btn" data-kr="Play The Demo" data-jp="デモをプレイ" data-en="Play The Demo">Play The Demo</a>-->
+            </div>
+        </section>
+        <section id="about-the-game" class="section">
+            <div class="container">
+                <div class="section-content game-introduction">
+                    <p data-kr="<strong>『There is NO PLAN B』</strong>는 세계 최고 수준의 Spine2D 애니메이션이 적용된 Anime 스타일의 등장인물들과, 현실적인 3D 배경 그래픽의 조합이 특징인 <strong>「내러티브 탐정 어드벤처」</strong> 게임입니다." 
+                    data-jp="<strong>SuperWave</strong>はゲームを心から愛する開発者たちが集まって2023年に設立されました。プレイヤーが真に楽しめるゲームを作るという一念のもと、これまで様々なプロジェクトを開発しています。" 
+                    data-en="<strong>SuperWave</strong> was founded in 2023 by developers who truly love games. With the determination to create games that players can genuinely enjoy, we have been developing various projects."
+                    >
+                    <strong>『There is NO PLAN B』</strong>는 세계 최고 수준의 Spine2D 애니메이션이 적용된 Anime 스타일의 등장인물들과, 현실적인 3D 배경 그래픽의 조합이 특징인 <strong>「내러티브 탐정 어드벤처」</strong> 게임입니다.</p>
+                </div>
+                <div class="steam-widget-container">
+                    <div class="player-clip"><div id="player"></div></div>
+                    <!-- English Steam Widget -->
+                    <div class="steam-widget" data-lang="en" onmouseenter="onMouseEnterToSteam()" onmouseleave="onMouseLeaveToSteam()">
+                        <iframe src="https://store.steampowered.com/widget/2928190/" frameborder="0" width="646" height="190"></iframe>
+                    </div>
+                    
+                    <!-- Korean Steam Widget -->
+                    <div class="steam-widget" data-lang="kr" style="display: none;" onmouseenter="onMouseEnterToSteam()" onmouseleave="onMouseLeaveToSteam()">
+                        <iframe src="https://store.steampowered.com/widget/2928190/?t=%E3%80%8CThere%20is%20NO%20PLAN%20B%E3%80%8D%EB%8A%94%20%E3%80%8C%EB%82%B4%EB%9F%AC%ED%8B%B0%EB%B8%8C%20%ED%83%90%EC%A0%95%20%EC%96%B4%EB%93%9C%EB%B2%A4%EC%B2%98%E3%80%8D%20%EA%B2%8C%EC%9E%84%EC%9C%BC%EB%A1%9C.%202070%EB%85%84%20%EC%82%AC%EC%9D%B4%EB%B2%84%ED%8E%91%ED%81%AC%20%EC%84%B8%EC%83%81%EC%9D%98%20%EC%A7%91%EC%88%9C%EC%9D%B4%20%EC%82%AC%EC%84%A4%ED%83%90%EC%A0%95%20B%EA%B0%80%20%EB%90%98%EC%96%B4%2C%20%EC%9D%98%EB%A2%B0%EC%9D%B8%EC%9D%84%20%EB%A7%8C%EB%82%98%EA%B3%A0%2C%20%EC%82%AC%EA%B1%B4%20%ED%98%84%EC%9E%A5%EC%9D%84%20%EC%A1%B0%EC%82%AC%ED%95%98%EA%B3%A0%2C%20%EB%AA%A9%EA%B2%A9%EC%9E%90%EB%A5%BC%20%EC%B0%BE%EC%95%84%20%EC%9D%B4%EC%95%BC%EA%B8%B0%EB%A5%BC%20%EB%93%A4%EC%96%B4%EB%B3%B4%EA%B3%A0%2C%20%EB%82%98%EC%95%84%EA%B0%80%20%EC%B0%BE%EC%95%84%EB%82%B8%20%EB%B2%94%EC%9D%B8%EC%9D%84%20%EC%A7%81%EC%A0%91%20%EC%B2%B4%ED%8F%AC%ED%95%B4%EC%95%BC%20%ED%95%A9%EB%8B%88%EB%8B%A4.%20%EB%8B%B9%EC%8B%A0%EC%9D%80%20%EC%A7%84%EC%83%81%EC%97%90%20%EB%8B%A4%EA%B0%80%EA%B0%88%20%EC%88%98%20%EC%9E%88%EC%9D%84%EA%B9%8C%EC%9A%94%3F" frameborder="0" width="646" height="190"></iframe>
+                    </div>
+                    
+                    <!-- Japanese Steam Widget -->
+                    <div class="steam-widget" data-lang="jp" style="display: none;" onmouseenter="onMouseEnterToSteam()" onmouseleave="onMouseLeaveToSteam()">
+                        <iframe src="https://store.steampowered.com/widget/2928190/?t=%E3%80%8CThere%20is%20NO%20PLAN%20B%E3%80%8D%E3%81%AF%E3%80%8C%E3%83%8A%E3%83%A9%E3%83%86%E3%82%A3%E3%83%96%E6%8E%A2%E5%81%B5%E3%82%A2%E3%83%89%E3%83%99%E3%83%B3%E3%83%81%E3%83%A3%E3%83%BC%E3%80%8D%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%A7%E3%80%82%202070%E5%B9%B4%E3%80%81%E3%82%B5%E3%82%A4%E3%83%90%E3%83%BC%E3%83%91%E3%83%B3%E3%82%AF%E3%81%AE%E4%B8%96%E7%95%8C%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%89%E3%82%A2%E6%B4%BE%E3%81%8C%E7%A7%81%E8%A8%AD%E6%8E%A2%E5%81%B5B%E3%81%AB%E3%81%AA%E3%82%8A%E3%80%81%E4%BE%9D%E9%A0%BC%E4%BA%BA%E3%81%AB%E4%BC%9A%E3%81%84%E3%80%81%E4%BA%8B%E4%BB%B6%E7%8F%BE%E5%A0%B4%E3%82%92%E8%AA%BF%E6%9F%BB%E3%81%97%E3%80%81%E7%9B%AE%E6%92%83%E8%80%85%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E8%A9%B1%E3%82%92%E8%81%9E%E3%81%84%E3%81%A6%E3%81%BF%E3%81%A6%E3%80%81%E3%81%95%E3%82%89%E3%81%AB%E8%A6%8B%E3%81%A4%E3%81%91%E3%81%9F%E7%8A%AF%E4%BA%BA%E3%82%92%E7%9B%B4%E6%8E%A5%E9%80%AE%E6%8D%95%E3%81%97%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E3%81%AA%E3%82%8A%E3%81%BE%E3%81%9B%E3%82%93%E3%80%82%20%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AF%E7%9C%9F%E7%9B%B8%E3%81%AB%E8%BF%91%E3%81%A5%E3%81%8F%E3%81%93%E3%81%A8%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%A7%E3%81%97%E3%82%87%E3%81%86%E3%81%8B%EF%BC%9F" frameborder="0" width="646" height="190"></iframe>
+                    </div>
+                </div>
+                <div class="gallery-container">
+                    <div class="gallery-slider" id="gallery-slider">
+                        <!-- 갤러리 슬라이드들이 자동으로 생성됩니다 -->
+                    </div>
+                    <div class="gallery-controls">
+                        <button class="gallery-btn prev-btn" onclick="changeSlide(-1)">
+                            <img src="assets/LeftButton.png" alt="이전">
+                        </button>
+                        <button class="gallery-btn next-btn" onclick="changeSlide(1)">
+                            <img src="assets/RightButton.png" alt="다음">
+                        </button>
+                    </div>
+                    <div class="gallery-dots" id="gallery-dots">
+                        <!-- 도트들이 자동으로 생성됩니다 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="company" class="section">
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <img src="assets/team_logo.png" alt="SuperWave Studio" class="company-logo">
+            </div>
+            <div class="section-content company-introduction" style="margin-bottom: 2rem;">
+                <p data-kr="<strong>Superwave</strong>는 뭐시기 저시기에 설립된 스튜디오고 현재 어쩌구 저쩌구 하고있슴다.<br>카미추리게임만듭니다." 
+                data-jp="<strong>SuperWave</strong>についての紹介をしてください" 
+                data-en="<strong>SuperWave</strong>english section。"
+                >
+                <strong>Superwave</strong>에 대한 소개 적기.</p>
+            </div>
+            <div class="container">
+                <div class="work-philosophy">
+                    <div class="philosophy-item">
+                        <p data-kr="• 뭐시기 하는 게임을 추구합니다" data-jp="• 私たちはゲームを心から愛し、楽しんでいます。" data-en="• We truly love and enjoy games.">• 저희는 게임을 진심으로 사랑하고 즐깁니다.</p>
+                    </div>
+                    <div class="philosophy-item">
+                        <p data-kr="• 뭐시기 하는 게임을 추구합니다 2." data-jp="• 私たちはチームメンバーとの調和、議論と新しい挑戦、そしてその経験の中で成長する自分自身に価値を見出します。" data-en="• We find value in harmony with team members, discussion and new challenges, and in ourselves growing through those experiences.">• 저희는 팀원들과의 화합, 토의와 새로운 도전, 그리고 그 경험 속에서 성장하는 자신에게서 가치를 찾습니다.</p>
+                    </div>
+                    <div class="philosophy-item">
+                        <p data-kr="• 뭐시기 하는 게임을 추구합니다 3" data-jp="• 私たちは水平な構造の下で、すべての人が平等な声を持ちます。" data-en="• Under a horizontal structure, everyone has an equal voice.">• 저희는 수평적인 구조 아래 모두가 동등한 목소리를 가집니다.</p>
+                    </div>
+                    <div class="philosophy-item">
+                        <p data-kr="• 뭐시기 하는 게임을 추구합니다 4" data-jp="• 私たちは不足している部分を勉強し、分析し、未来を徹底的に計画します。" data-en="• We study and analyze our shortcomings and thoroughly plan for the future.">• 저희는 부족한 부분을 공부하고 분석하며 미래를 철저하게 계획합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="timeline" class="section">
+            <div class="container">
+                <h2 data-kr="TIMELINE" data-jp="タイムライン" data-en="TIMELINE">TIMELINE</h2>
+                <div class="section-content game-introduction">
+                    <p data-kr="몇 년에 설립하여 어쩌구 저쩌구 등 내용 적기" 
+                    data-jp="<strong>SuperWave</strong>はゲームを心から愛する開発者たちが集まって2023年に設立されました。プレイヤーが真に楽しめるゲームを作るという一念のもと、これまで様々なプロジェクトを開発しています。" 
+                    data-en="<strong>SuperWave</strong> was founded in 2023 by developers who truly love games. With the determination to create games that players can genuinely enjoy, we have been developing various projects."
+                    >
+                    <strong>『There is NO PLAN B』</strong>는 세계 최고 수준의 Spine2D 애니메이션이 적용된 Anime 스타일의 등장인물들과, 현실적인 3D 배경 그래픽의 조합이 특징인 <strong>「내러티브 탐정 어드벤처」</strong> 게임입니다.</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2021.02</div>
+                        <div class="timeline-content" data-kr="법인 설립, 우수초기창업 지원 프로그램 선정(경기콘텐츠진흥원)" data-jp="法人設立" data-en="Legal Entity Establishment">법인 설립</div>
+                    </div>
+                    <div class="timeline-item green">
+                        <div class="timeline-date">2021.12</div>
+                        <div class="timeline-content" data-kr="XBOX 개발자 교육 프로그램, XBOX GAMECAMP 수료(마이크로소프트)" data-jp="XBOX開発者教育プログラム、XBOX GAMECAMP修了" data-en="Completed XBOX Developer Education Program, XBOX GAMECAMP (Microsoft)">XBOX 개발자 교육 프로그램, XBOX GAMECAMP 수료(마이크로소프트)</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2022.02</div>
+                        <div class="timeline-content" data-kr="우수초기창업 지원 프로그램 추가 지원 선정(경기콘텐츠진흥원)" data-jp="優秀初期創業支援プログラム追加支援選定" data-en="Selected for Additional Support for Excellent Early-stage Startup Program">우수초기창업 지원 프로그램 추가 지원 선정(경기콘텐츠진흥원)</div>
+                    </div>
+                    <div class="timeline-item green">
+                        <div class="timeline-date">2022.07</div>
+                        <div class="timeline-content" data-kr="XBOX 퍼블리싱 권한 획득 및 개발 지원 파트너쉽 체결(마이크로소프트)" data-jp="XBOXパブリッシング権限獲得及び開発支援パートナーシップ締結" data-en="Acquired XBOX Publishing Rights and Signed Development Support Partnership (Microsoft)">XBOX 퍼블리싱 권한 획득 및 개발 지원 파트너쉽 체결(마이크로소프트)</div>
+                    </div>
+
+                    <div class="timeline-item"> 
+                        <div class="timeline-date">2023.02</div>
+                        <div class="timeline-content" data-kr="우수 인디 개발팀 인큐베이팅 프로그램 '토끼굴' 선정(스마일게이트)" data-jp="優秀インディー開発チームインキュベーティングプログラム「トッキグル」選定" data-en="Selected for Excellent Indie Development Team Incubating Program 'Tokkigul' (Smilegate)">우수 인디 개발팀 인큐베이팅 프로그램 '토끼굴' 선정(스마일게이트)</div>
+                    </div>
+                    <div class="timeline-item highlight">
+                        <div class="timeline-date">2024.05</div>
+                        <div class="timeline-content" data-kr="There is NO PLAN B, 크라우드 펀딩 참가자 800명, 5000만원 모금 성공" data-jp="There is NO PLAN B、クラウドファンディング参加者800名、5000万円調達成功" data-en="There is NO PLAN B, 800 Crowdfunding Participants, 50 Million Won Fundraising Success">There is NO PLAN B, 크라우드 펀딩 참가자 800명, 5000만원 모금 성공</div>
+                    </div>
+                    <div class="timeline-item red">
+                        <div class="timeline-date">2024.06</div>
+                        <div class="timeline-content" data-kr="닌텐도 스위치 퍼블리싱 권한 획득 및 개발 지원 파트너쉽 체결" data-jp="任天堂スイッチパブリッシング権限獲得及び開発支援パートナーシップ締結" data-en="Acquired Nintendo Switch Publishing Rights and Signed Development Support Partnership (Nintendo)">닌텐도 스위치 퍼블리싱 권한 획득 및 개발 지원 파트너쉽 체결</div>
+                    </div>
+                    <div class="timeline-item prize">
+                        <div class="timeline-date">2024.07</div>
+                        <div class="timeline-content" data-kr="There is NO PLAN B, 인디크래프트 입상" data-jp="There is NO PLAN B、インディークラフト入賞" data-en="There is NO PLAN B, Awarded at Indiecraft">There is NO PLAN B, 인디크래프트 입상</div>
+                    </div>
+                    <div class="timeline-item prize">
+                        <div class="timeline-date">2024.08</div>
+                        <div class="timeline-content" data-kr="There is NO PLAN B, BIC 경쟁 부분 '아트', '내러티브' 최종 노미네이트" data-jp="There is NO PLAN B、BIC競争部門「アート」「ナラティブ」最終ノミネート" data-en="There is NO PLAN B, Final Nominee for BIC Competition Categories 'Art', 'Narrative'">There is NO PLAN B, BIC 경쟁 부분 '아트', '내러티브' 최종 노미네이트</div>
+                    </div>
+                    <div class="timeline-item prize">
+                        <div class="timeline-date">2024.08</div>
+                        <div class="timeline-content" data-kr="There is NO PLAN B, BIGEM 3기 지원 프로그램 선정(펄어비스)" data-jp="There is NO PLAN B、BIGEM 3期支援プログラム選定" data-en="There is NO PLAN B, Selected for BIGEM 3rd Term Support Program (Pearl Abyss)">There is NO PLAN B, BIGEM 3기 지원 프로그램 선정(펄어비스)</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2025.02</div>
+                        <div class="timeline-content" data-kr="광운대학교 게임콘텐츠학과, 산학협력 체결" data-jp="光雲大学校ゲームコンテンツ学科、産学協力締結" data-en="Signed Industry-Academia Cooperation with Kwangwoon University Game Content Department">광운대학교 게임콘텐츠학과, 산학협력 체결</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="join-us" class="section">
+            <div class="container">
+                <h2 data-kr="JOIN US" data-jp="参加する" data-en="JOIN US">JOIN US</h2>
+                <div class="section-content game-introduction">
+                    <p data-kr="저희와 함께 새로운 게임을 만들어갈 동료를 찾습니다." 
+                    data-jp="私たちと一緒に新しいゲームを作る仲間を探しています。" 
+                    data-en="We are looking for colleagues to create new games with us."
+                    >
+                    저희와 함께 새로운 게임을 만들어갈 동료를 찾습니다.</p>
+                </div>
+                <div class="contact-links">
+                    <div class="contact-item">
+                        <a href="https://superwave.com/careers" target="_blank" data-kr="채용 공고" data-jp="採用情報" data-en="Job Openings">채용 공고</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 data-kr="CONTACT US" data-jp="お問い合わせ" data-en="CONTACT US">CONTACT US</h2>
+                <div class="contact-info">
+                    <div class="section-content game-introduction">
+                        <p data-kr="저희는 뭐에 관심 있습니다. 뭐 어쩌구 저쩌구면 연락주세요!" 
+                        data-jp="<strong>SuperWave</strong>はゲームを心から愛する開発者たちが集まって2023年に設立されました。プレイヤーが真に楽しめるゲームを作るという一念のもと、これまで様々なプロジェクトを開発しています。" 
+                        data-en="<strong>SuperWave</strong> was founded in 2023 by developers who truly love games. With the determination to create games that players can genuinely enjoy, we have been developing various projects."
+                        >
+                        관련 내용 적기</p>
+                    </div>
+                    
+                    <div class="contact-links">
+                        <div class="contact-item">
+                            <a href="mailto:contact@superwave.com">contact@superwave.com</a>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <a href="https://twitter.com/superwave_studio" target="_blank" data-kr="X (Twitter)" data-jp="X (Twitter)" data-en="X (Twitter)">X (Twitter)</a>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <a href="assets/presskit.zip" download data-kr="PressKit" data-jp="PressKit" data-en="PressKit">PressKit</a>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>Copyright ⓒ 2025 SuperWave Co., Ltd All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+    <script src="./packages/@esotericsoftware/spine-webgl/dist/iife/spine-webgl.js"></script>
+    <script src="./packages/@esotericsoftware/spine-player/dist/iife/spine-player.js"></script>
+    <script src="spine-control.js"></script>
+</body>
+</html>
