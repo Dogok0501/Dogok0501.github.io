@@ -46,6 +46,28 @@ window.addEventListener('error', function (e) {
   }
 });
 
+// YouTube IFrame API가 로드될 때 호출되는 전역 함수
+window.onYouTubeIframeAPIReady = function() {
+  // API가 로드된 후 이미 생성된 iframe에 대해 플레이어 초기화
+  if (slides.length > 0) {
+    slides.forEach((slide, index) => {
+      const iframe = slide.querySelector('.gallery-youtube');
+      if (iframe && !youtubePlayers[iframe.id]) {
+        const iframeId = iframe.id;
+        if (iframe.src && iframe.src.includes('youtube.com')) {
+          youtubePlayers[iframeId] = new YT.Player(iframeId, {
+            events: {
+              'onReady': function(event) {
+                // 플레이어 준비 완료
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+};
+
 document.addEventListener('DOMContentLoaded', function () {
   const savedLanguage = localStorage.getItem('selectedLanguage');
   if (savedLanguage && ['kr', 'jp', 'en'].includes(savedLanguage)) {
@@ -78,6 +100,7 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 let currentSlideIndex = 0;
 let slides = [];
 let dots = [];
+let youtubePlayers = {}; // YouTube IFrame API 플레이어 객체 저장
 
 function initializeGallery() {
   const slider = document.getElementById('gallery-slider');
@@ -94,12 +117,38 @@ function initializeGallery() {
       // 유튜브 영상 임베드
       const youtubeId = extractYoutubeId(item.url);
       const iframe = document.createElement('iframe');
-      iframe.src = `https://www.youtube.com/embed/${youtubeId}`;
+      const embedUrl = `https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&origin=${window.location.origin}`;
+      iframe.src = index === 0 ? embedUrl : ''; // 첫 번째 슬라이드만 로드
       iframe.className = 'gallery-youtube';
       iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
       iframe.allowFullscreen = true;
       iframe.frameBorder = '0';
+      const iframeId = `youtube-iframe-${index}`;
+      iframe.id = iframeId;
+      // 원본 URL을 data 속성에 저장
+      iframe.setAttribute('data-youtube-url', embedUrl);
+      iframe.setAttribute('data-youtube-id', youtubeId);
       slide.appendChild(iframe);
+      
+      // YouTube IFrame API 플레이어 초기화 (첫 번째 슬라이드만, API가 로드된 경우)
+      if (index === 0 && typeof YT !== 'undefined' && YT.Player && iframe.src) {
+        // iframe이 로드될 때까지 약간의 지연 후 플레이어 초기화
+        setTimeout(() => {
+          if (iframe.src && !youtubePlayers[iframeId]) {
+            try {
+              youtubePlayers[iframeId] = new YT.Player(iframeId, {
+                events: {
+                  'onReady': function(event) {
+                    // 플레이어 준비 완료
+                  }
+                }
+              });
+            } catch (e) {
+              console.log('YouTube player initialization error:', e);
+            }
+          }
+        }, 100);
+      }
     } else if (item.type === 'image') {
       // 이미지
       const img = document.createElement('img');
@@ -150,12 +199,64 @@ function getImageFiles() {
 }
 
 function showSlide(n) {
+  // 이전 슬라이드의 유튜브 영상 중단
+  slides.forEach((slide, index) => {
+    if (slide.classList.contains('active')) {
+      const iframe = slide.querySelector('.gallery-youtube');
+      if (iframe) {
+        const iframeId = iframe.id;
+        // YouTube IFrame API를 사용하여 재생 중단
+        if (youtubePlayers[iframeId] && typeof youtubePlayers[iframeId].pauseVideo === 'function') {
+          try {
+            youtubePlayers[iframeId].pauseVideo();
+          } catch (e) {
+            console.log('YouTube player pause error:', e);
+          }
+        }
+      }
+    }
+  });
+
   slides.forEach((slide) => slide.classList.remove('active'));
   dots.forEach((dot) => dot.classList.remove('active'));
   if (n >= slides.length) currentSlideIndex = 0;
   if (n < 0) currentSlideIndex = slides.length - 1;
-  slides[currentSlideIndex].classList.add('active');
+  
+  // 새 슬라이드 활성화
+  const newSlide = slides[currentSlideIndex];
+  newSlide.classList.add('active');
   dots[currentSlideIndex].classList.add('active');
+  
+  // 새 슬라이드가 유튜브 영상인 경우 로드
+  const iframe = newSlide.querySelector('.gallery-youtube');
+  if (iframe) {
+    const youtubeUrl = iframe.getAttribute('data-youtube-url');
+    const youtubeId = iframe.getAttribute('data-youtube-id');
+    const iframeId = iframe.id;
+    
+    if (youtubeUrl && youtubeId) {
+      // iframe이 비어있거나 다른 URL로 변경된 경우 원래 URL로 복원
+      if (!iframe.src || !iframe.src.includes(youtubeId)) {
+        iframe.src = youtubeUrl;
+      }
+      
+      // YouTube IFrame API 플레이어 초기화 (아직 초기화되지 않은 경우)
+      if (!youtubePlayers[iframeId] && typeof YT !== 'undefined' && YT.Player) {
+        // iframe이 로드될 때까지 대기
+        iframe.addEventListener('load', function() {
+          if (!youtubePlayers[iframeId]) {
+            youtubePlayers[iframeId] = new YT.Player(iframeId, {
+              events: {
+                'onReady': function(event) {
+                  // 플레이어 준비 완료
+                }
+              }
+            });
+          }
+        }, { once: true });
+      }
+    }
+  }
 }
 
 function changeSlide(n) { currentSlideIndex += n; showSlide(currentSlideIndex); }
