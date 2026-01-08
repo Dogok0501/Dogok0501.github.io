@@ -83,6 +83,7 @@ body {
     pointer-events: auto;
     z-index: 10;
 }
+
 header {
     background: rgba(250, 250, 250, 0.95);
     padding: 1rem 0;
@@ -135,9 +136,11 @@ nav {
 }
 
 .language-selector {
-    position: absolute;
-    right: 0;
+    position: fixed;
+    top: 1rem;
+    right: 20px;
     display: inline-block;
+    z-index: 1001;
 }
 
 .language-btn {
@@ -186,13 +189,13 @@ nav {
 
 .language-option:hover { background: rgba(79, 195, 247, 0.1); color: #4fc3f7; }
 
-main { margin-top: 68px; }
+main {}
 
-.hero { position: relative; text-align: center; padding: 4rem 0; height: 70vh; max-height: 950px; min-height: 900px; display: flex; align-items: center; overflow: hidden; }
+.hero { position: relative; text-align: center; padding: 4rem 0; height: 90vh; display: flex; align-items: center; overflow: hidden; }
 .hero-logo { margin-bottom: 2rem; display: flex; justify-content: center; }
 .hero-logo-img { height: 120px; width: auto; transition: transform 0.3s ease; }
 .hero-logo-img:hover { transform: scale(1.05); }
-.hero-bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.hero-bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; aspect-ratio: 16 / 9; }
 .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: -1; }
 .hero-content { position: relative; z-index: 1; color: #ffffff; }
 
@@ -285,7 +288,7 @@ footer { background: #f5f5f5; color: #666; text-align: center; padding: 2rem 0; 
 #about-the-game { padding-top: 4rem; }
 
 /* Spine player 고정 위치 (우하단) */
-#player {
+#seneka-player {
     position: absolute;
     top: -72px;
     right: -34px;
@@ -296,7 +299,7 @@ footer { background: #f5f5f5; color: #666; text-align: center; padding: 2rem 0; 
 }
 
 /* 위젯 뒤로 보이도록 하는 옵션 클래스 */
-#player.behind-widget { z-index: 1; }
+#seneka-player.behind-widget { z-index: 1; }
 
 /* 위젯이 항상 위에 오도록 보장 (위젯이 존재한다면) */
 .steam-widget-container 
@@ -312,7 +315,7 @@ footer { background: #f5f5f5; color: #666; text-align: center; padding: 2rem 0; 
 .steam-widget-container { -ms-overflow-style: none; scrollbar-width: none; }
 .steam-widget { z-index: 2; overflow: hidden; width: clamp(360px, 65vw, 646px); min-width: 360px; max-width: 646px; flex: 0 1 auto; }
 
-#about-the-game .player-clip {
+#about-the-game .seneka-player-clip {
     position: absolute;
     top: -13px;
     left: 50%;
@@ -326,14 +329,14 @@ footer { background: #f5f5f5; color: #666; text-align: center; padding: 2rem 0; 
 }
 
 /* 상태 클래스로 이동량 제어 (JS에서 class만 토글) */
-#about-the-game .player-clip.is-raised {
+#about-the-game .seneka-player-clip.is-raised {
     transform: translateX(-50%) translateY(-150px);
 }
 
 @media (max-width: 768px) {
     .nav-links { display: none; }
     .logo-img { height: 35px; }
-    .hero { height: 60vh; max-height: 700px; min-height: 500px; padding: 2rem 0; }
+    .hero { height: 90vh; padding: 2rem 0; }
     .hero-logo-img { height: 80px; }
     .hero p { font-size: 1.4rem; letter-spacing: 0.5px; }
     .steam-widget-section { padding: 2rem 0; }
