@@ -189,7 +189,7 @@ nav {
 
 .language-option:hover { background: rgba(79, 195, 247, 0.1); color: #4fc3f7; }
 
-.hero { position: relative; text-align: center; padding: 4rem 0; height: 90vh; display: flex; align-items: center; overflow: hidden; }
+.hero { position: relative; text-align: center; padding: 4rem 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
 .hero-logo { margin-bottom: 2rem; display: flex; justify-content: center; }
 .hero-logo-img { height: 120px; width: auto; transition: transform 0.3s ease; }
 .hero-logo-img:hover { transform: scale(1.05); }
@@ -218,6 +218,17 @@ nav {
 .dot { width: 12px; height: 12px; border-radius: 50%; background: #ccc; cursor: pointer; transition: all 0.3s ease; }
 .dot.active { background: #23619B; transform: scale(1.2); }
 .dot:hover { background: #1a4a7a; }
+.presskit-container { margin-top: 4rem; text-align: center; }
+.presskit-container h3 { font-size: 1.8rem; margin-bottom: 2rem; color: #23619B; font-weight: 700; }
+.presskit-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
+.presskit-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; background: #34a853; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease; border: 2px solid #34a853; letter-spacing: 0.5px; position: relative; padding-left: 50px; }
+.presskit-btn::before { content: ''; position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background-image: url('assets/gd_icon.png'); background-size: contain; background-repeat: no-repeat; background-position: center; filter: brightness(0) invert(1); }
+.presskit-btn:hover { background: #2d8f47; border-color: #2d8f47; transform: translateY(-2px); }
+.presskit-btn:active { transform: translateY(0); }
+.streamer-kit-btn { background: #34a853; border-color: #34a853; }
+.streamer-kit-btn:hover { background: #2d8f47; border-color: #2d8f47; }
+.presskit-btn-link { background: #34a853; border-color: #34a853; }
+.presskit-btn-link:hover { background: #2d8f47; border-color: #2d8f47; }
 
 .hero p { font-size: 1.4rem; margin-bottom: 3rem; color: #ffffff; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 3px 3px 6px rgba(0,0,0,0.7); font-weight: 700; letter-spacing: 1px; }
 .demo-btn { display: inline-block; background: linear-gradient(135deg, #4fc3f7 0%, #2b77ad 100%); color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 5px; font-weight: 700; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; }
@@ -347,6 +358,8 @@ footer { background: #f5f5f5; color: #666; text-align: center; padding: 2rem 0; 
     .prev-btn { margin-left: -60px; }
     .next-btn { margin-right: -60px; }
     .gallery-dots { margin-top: 1.5rem; }
+    .presskit-buttons { flex-direction: column; gap: 1rem; align-items: center; }
+    .presskit-btn { width: 100%; max-width: 300px; padding: 12px 30px; font-size: 1rem; }
     .join-buttons { flex-direction: column; gap: 1.5rem; align-items: center; margin-top: 2rem; }
     .join-btn { min-width: 280px; padding: 1rem 1.5rem; font-size: 1rem; }
     .contact-links { gap: 0.8rem; }
