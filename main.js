@@ -83,21 +83,36 @@ function initializeGallery() {
   const slider = document.getElementById('gallery-slider');
   const dotsContainer = document.getElementById('gallery-dots');
 
-  const imageFiles = getImageFiles();
-  if (imageFiles.length === 0) return;
+  const galleryItems = getGalleryItems();
+  if (galleryItems.length === 0) return;
 
-  imageFiles.forEach((filename, index) => {
+  galleryItems.forEach((item, index) => {
     const slide = document.createElement('div');
     slide.className = `gallery-slide ${index === 0 ? 'active' : ''}`;
-    const img = document.createElement('img');
-    img.src = `assets/screenshots/${filename}`;
-    img.alt = `게임 스크린샷 ${index + 1}`;
-    img.className = 'gallery-image';
-    slide.appendChild(img);
+    
+    if (item.type === 'youtube') {
+      // 유튜브 영상 임베드
+      const youtubeId = extractYoutubeId(item.url);
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${youtubeId}`;
+      iframe.className = 'gallery-youtube';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.frameBorder = '0';
+      slide.appendChild(iframe);
+    } else if (item.type === 'image') {
+      // 이미지
+      const img = document.createElement('img');
+      img.src = `assets/screenshots/${item.filename}`;
+      img.alt = `게임 스크린샷 ${index + 1}`;
+      img.className = 'gallery-image';
+      slide.appendChild(img);
+    }
+    
     slider.appendChild(slide);
   });
 
-  imageFiles.forEach((_, index) => {
+  galleryItems.forEach((_, index) => {
     const dot = document.createElement('span');
     dot.className = `dot ${index === 0 ? 'active' : ''}`;
     dot.onclick = () => currentSlide(index + 1);
@@ -106,6 +121,28 @@ function initializeGallery() {
 
   slides = document.querySelectorAll('.gallery-slide');
   dots = document.querySelectorAll('.dot');
+}
+
+function getGalleryItems() {
+  return [
+    // 첫 번째 항목: 유튜브 영상
+    { type: 'youtube', url: 'https://www.youtube.com/watch?v=6R8PgTh6EW0' },
+    // 나머지 이미지들
+    { type: 'image', filename: '0.jpg' },
+    { type: 'image', filename: '1.gif' },
+    { type: 'image', filename: '1.jpg' },
+    { type: 'image', filename: '2.jpg' },
+    { type: 'image', filename: '3.jpg' },
+    { type: 'image', filename: '4.jpg' },
+    { type: 'image', filename: '5.jpg' },
+    { type: 'image', filename: '6.jpg' }
+  ];
+}
+
+function extractYoutubeId(url) {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
 }
 
 function getImageFiles() {
@@ -129,7 +166,7 @@ function autoSlide() { currentSlideIndex++; showSlide(currentSlideIndex); }
 
 window.addEventListener('scroll', function () {
   const header = document.querySelector('header');
-  header.style.background = window.scrollY > 100 ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)';
+//  header.style.background = window.scrollY > 100 ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)';
 });
 
 
