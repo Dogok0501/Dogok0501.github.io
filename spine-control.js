@@ -5,9 +5,7 @@ const ease = "ease-in-out";
 let currX = 0;
 const constY = -50;
 
-
 let senekaPlayer = null;
-let bPlayer = null;
 let ignore_play_command = false;
 document.addEventListener('DOMContentLoaded', function() {
     const area = document.getElementById('seneka-player');
@@ -26,24 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (senekaPlayer) senekaPlayer.animationState.setAnimation(0, "Idle", true);
         }
        });
-    bPlayer = new spine.SpinePlayer("b-player", {
-        jsonUrl: "spine_resource/ScSave_B.json",
-        atlasUrl: "spine_resource/ScSave_B.atlas",
-        premultipliedAlpha: false,
-        animation: "Smoke_ing",
-        alpha: true,
-        showControls: false,
-        interactive: false, // Disable click and touch interactions
-        scale: 1,
-        success: async function() {
-            console.log("B 애니메이션 로드 완료");
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            if (bPlayer) {
-                bPlayer.animationState.setAnimation(0, "Smoke_ing", true);
-                bPlayer.animationState.setAnimation(1, "Color_R", true);
-            }
-        }
-    });
     // 외부에서 제어할 수 있도록 전역 API 노출
     window.spineWidget = {
         show() { if (area) { area.style.opacity = '1'; area.style.pointerEvents = 'auto'; }},
