@@ -308,7 +308,7 @@ nav {
 .presskit-container h3 { font-size: 1.8rem; margin-bottom: 2rem; color: #23619B; font-weight: 700; font-family: 'KBO Dia Gothic', 'Freesentation', sans-serif; }
 .presskit-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
 .presskit-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 32px; background: #ffffff; color: #34a853; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease; border: 2px solid #34a853; letter-spacing: 0.5px; }
-.presskit-btn::before { content: ''; width: 20px; height: 20px; background-image: url('assets/gd_icon.png'); background-size: contain; background-repeat: no-repeat; background-position: center; flex-shrink: 0; }
+.presskit-btn::before { content: ''; width: 20px; height: 20px; background-image: url('assets/gd_icon_notlfs.png'); background-size: contain; background-repeat: no-repeat; background-position: center; flex-shrink: 0; }
 .presskit-btn:hover { background: #f5f5f5; border-color: #2d8f47; transform: translateY(-2px); }
 .presskit-btn:active { transform: translateY(0); }
 .streamer-kit-btn { background: #ffffff; border-color: #696969; color: #696969; }
