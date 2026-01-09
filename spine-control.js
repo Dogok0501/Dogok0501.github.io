@@ -5,12 +5,11 @@ const ease = "ease-in-out";
 let currX = 0;
 const constY = -50;
 
-
-let player = null;
+let senekaPlayer = null;
 let ignore_play_command = false;
 document.addEventListener('DOMContentLoaded', function() {
-    const area = document.getElementById('player');
-    player = new spine.SpinePlayer("player", {
+    const area = document.getElementById('seneka-player');
+    senekaPlayer = new spine.SpinePlayer("seneka-player", {
         jsonUrl: "spine_resource/seneka.json",
         atlasUrl: "spine_resource/seneka.atlas",
         premultipliedAlpha: false,
@@ -20,12 +19,11 @@ document.addEventListener('DOMContentLoaded', function() {
         interactive: false, // Disable click and touch interactions
         scale: 1,
         success: async function() {
-            console.log("애니메이션 로드 완료");
+            console.log("seneka 애니메이션 로드 완료");
             await new Promise(resolve => setTimeout(resolve, 1000));
-            if (player) player.animationState.setAnimation(0, "Idle", true);
+            if (senekaPlayer) senekaPlayer.animationState.setAnimation(0, "Idle", true);
         }
        });
-
     // 외부에서 제어할 수 있도록 전역 API 노출
     window.spineWidget = {
         show() { if (area) { area.style.opacity = '1'; area.style.pointerEvents = 'auto'; }},
@@ -53,8 +51,8 @@ function playAnimation(animationName, after_ignore_sec=0) {
     if (after_ignore_sec > 0) {
         ignore_play_command = true;
     }
-    if (player) {
-        player.animationState.setAnimation(0, animationName, true);
+    if (senekaPlayer) {
+        senekaPlayer.animationState.setAnimation(0, animationName, true);
         if (after_ignore_sec > 0) {
             setTimeout(() => {
                 ignore_play_command = false;
@@ -69,7 +67,7 @@ function playIdle() {
 
 function onMouseEnterToSteam () {
     try {
-        const clip = document.querySelector('#about-the-game .player-clip');
+        const clip = document.querySelector('#about-the-game .seneka-player-clip');
         if (clip) clip.classList.add('is-raised');
         playAnimation("Deride_ing");
     } catch (e) {
@@ -79,7 +77,7 @@ function onMouseEnterToSteam () {
 
 function onMouseLeaveToSteam () {
     try {
-        const clip = document.querySelector('#about-the-game .player-clip');
+        const clip = document.querySelector('#about-the-game .seneka-player-clip');
         if (clip) clip.classList.remove('is-raised');
         playAnimation("Idle");
     } catch (e) {

@@ -6,30 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Superwave Studio</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <a href="#" class="logo">
-                <img src="assets/team_logo.png" alt="SuperWave Studio" class="logo-img">
-            </a>
-            <div class="language-selector">
-                <button class="language-btn" id="languageBtn">KR</button>
-                <div class="language-dropdown" id="languageDropdown">
-                    <button class="language-option" data-lang="kr">한국어</button>
-                    <button class="language-option" data-lang="jp">日本語</button>
-                    <button class="language-option" data-lang="en">English</button>
-                </div>
-            </div>
-        </nav>
-    </header>
-
+    
+    <div class="language-selector">
+        <button class="language-btn" id="languageBtn">KR</button>
+        <div class="language-dropdown" id="languageDropdown">
+            <button class="language-option" data-lang="kr">한국어</button>
+            <button class="language-option" data-lang="jp">日本語</button>
+            <button class="language-option" data-lang="en">English</button>
+        </div>
+    </div>
     <main>
         <section class="hero">
             <video autoplay muted loop playsinline preload="auto" class="hero-bg-video">
-                <source src="assets/pv_video.mp4" type="video/mp4">
+                <source src="assets/pv_editing.mp4" type="video/mp4">
             </video>
-            <div class="hero-overlay"></div>
+            <!--<div class="hero-overlay"></div>-->
             <div class="container hero-content">
                 <div class="hero-logo">
                     <img src="assets/game_title_white.png" alt="SuperWave Studio" class="hero-logo-img">
@@ -47,7 +41,7 @@
                     <strong>『There is NO PLAN B』</strong>는 세계 최고 수준의 Spine2D 애니메이션이 적용된 Anime 스타일의 등장인물들과, 현실적인 3D 배경 그래픽의 조합이 특징인 <strong>「내러티브 탐정 어드벤처」</strong> 게임입니다.</p>
                 </div>
                 <div class="steam-widget-container">
-                    <div class="player-clip"><div id="player"></div></div>
+                    <div class="seneka-player-clip"><div id="seneka-player"></div></div>
                     <!-- English Steam Widget -->
                     <div class="steam-widget" data-lang="en" onmouseenter="onMouseEnterToSteam()" onmouseleave="onMouseLeaveToSteam()">
                         <iframe src="https://store.steampowered.com/widget/2928190/" frameborder="0" width="646" height="190"></iframe>
@@ -79,7 +73,15 @@
                         <!-- 도트들이 자동으로 생성됩니다 -->
                     </div>
                 </div>
+                <div class="presskit-container">
+                    <!--<h2 data-kr="Episode 0 공개 중!" data-jp="Episode 0 공개 중!" data-en="Episode 0 공개 중!">Episode 0 공개 중!</h2>-->
+                    <div class="presskit-buttons">
+                        <a href="https://drive.google.com/drive/folders/1b7LTsK6Mb2bry5lMRqAYJFpVeMspp7Uj?usp=sharing" target="_blank" class="presskit-btn streamer-kit-btn" data-kr="StreamerKit" data-jp="StreamerKit" data-en="StreamerKit">StreamerKit</a>
+                        <a href="https://drive.google.com/drive/folders/1uoyLRrSfbgVbPFPkFDspyhvpj5MStLuU?usp=sharing" target="_blank" class="presskit-btn presskit-btn-link" data-kr="PressKit" data-jp="PressKit" data-en="PressKit">PressKit</a>
+                    </div>
+                </div>
             </div>
+        
         </section>
         <section id="company" class="section">
             <div style="text-align: center; margin-bottom: 1rem;">
@@ -108,111 +110,27 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <section id="timeline" class="section">
-            <div class="container">
-                <h2 data-kr="TIMELINE" data-jp="タイムライン" data-en="TIMELINE">TIMELINE</h2>
-                <div class="section-content game-introduction">
-                    <p data-kr="몇 년에 설립하여 어쩌구 저쩌구 등 내용 적기" 
-                    data-jp="<strong>SuperWave</strong>はゲームを心から愛する開発者たちが集まって2023年に設立されました。プレイヤーが真に楽しめるゲームを作るという一念のもと、これまで様々なプロジェクトを開発しています。" 
-                    data-en="<strong>SuperWave</strong> was founded in 2023 by developers who truly love games. With the determination to create games that players can genuinely enjoy, we have been developing various projects."
-                    >
-                    <strong>『There is NO PLAN B』</strong>는 세계 최고 수준의 Spine2D 애니메이션이 적용된 Anime 스타일의 등장인물들과, 현실적인 3D 배경 그래픽의 조합이 특징인 <strong>「내러티브 탐정 어드벤처」</strong> 게임입니다.</p>
-                </div>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-date">2021.02</div>
-                        <div class="timeline-content" data-kr="법인 설립, 우수초기창업 지원 프로그램 선정(경기콘텐츠진흥원)" data-jp="法人設立" data-en="Legal Entity Establishment">법인 설립</div>
-                    </div>
-                    <div class="timeline-item green">
-                        <div class="timeline-date">2021.12</div>
-                        <div class="timeline-content" data-kr="XBOX 개발자 교육 프로그램, XBOX GAMECAMP 수료(마이크로소프트)" data-jp="XBOX開発者教育プログラム、XBOX GAMECAMP修了" data-en="Completed XBOX Developer Education Program, XBOX GAMECAMP (Microsoft)">XBOX 개발자 교육 프로그램, XBOX GAMECAMP 수료(마이크로소프트)</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2022.02</div>
-                        <div class="timeline-content" data-kr="우수초기창업 지원 프로그램 추가 지원 선정(경기콘텐츠진흥원)" data-jp="優秀初期創業支援プログラム追加支援選定" data-en="Selected for Additional Support for Excellent Early-stage Startup Program">우수초기창업 지원 프로그램 추가 지원 선정(경기콘텐츠진흥원)</div>
-                    </div>
-                    <div class="timeline-item green">
-                        <div class="timeline-date">2022.07</div>
-                        <div class="timeline-content" data-kr="XBOX 퍼블리싱 권한 획득 및 개발 지원 파트너쉽 체결(마이크로소프트)" data-jp="XBOXパブリッシング権限獲得及び開発支援パートナーシップ締結" data-en="Acquired XBOX Publishing Rights and Signed Development Support Partnership (Microsoft)">XBOX 퍼블리싱 권한 획득 및 개발 지원 파트너쉽 체결(마이크로소프트)</div>
-                    </div>
-
-                    <div class="timeline-item"> 
-                        <div class="timeline-date">2023.02</div>
-                        <div class="timeline-content" data-kr="우수 인디 개발팀 인큐베이팅 프로그램 '토끼굴' 선정(스마일게이트)" data-jp="優秀インディー開発チームインキュベーティングプログラム「トッキグル」選定" data-en="Selected for Excellent Indie Development Team Incubating Program 'Tokkigul' (Smilegate)">우수 인디 개발팀 인큐베이팅 프로그램 '토끼굴' 선정(스마일게이트)</div>
-                    </div>
-                    <div class="timeline-item highlight">
-                        <div class="timeline-date">2024.05</div>
-                        <div class="timeline-content" data-kr="There is NO PLAN B, 크라우드 펀딩 참가자 800명, 5000만원 모금 성공" data-jp="There is NO PLAN B、クラウドファンディング参加者800名、5000万円調達成功" data-en="There is NO PLAN B, 800 Crowdfunding Participants, 50 Million Won Fundraising Success">There is NO PLAN B, 크라우드 펀딩 참가자 800명, 5000만원 모금 성공</div>
-                    </div>
-                    <div class="timeline-item red">
-                        <div class="timeline-date">2024.06</div>
-                        <div class="timeline-content" data-kr="닌텐도 스위치 퍼블리싱 권한 획득 및 개발 지원 파트너쉽 체결" data-jp="任天堂スイッチパブリッシング権限獲得及び開発支援パートナーシップ締結" data-en="Acquired Nintendo Switch Publishing Rights and Signed Development Support Partnership (Nintendo)">닌텐도 스위치 퍼블리싱 권한 획득 및 개발 지원 파트너쉽 체결</div>
-                    </div>
-                    <div class="timeline-item prize">
-                        <div class="timeline-date">2024.07</div>
-                        <div class="timeline-content" data-kr="There is NO PLAN B, 인디크래프트 입상" data-jp="There is NO PLAN B、インディークラフト入賞" data-en="There is NO PLAN B, Awarded at Indiecraft">There is NO PLAN B, 인디크래프트 입상</div>
-                    </div>
-                    <div class="timeline-item prize">
-                        <div class="timeline-date">2024.08</div>
-                        <div class="timeline-content" data-kr="There is NO PLAN B, BIC 경쟁 부분 '아트', '내러티브' 최종 노미네이트" data-jp="There is NO PLAN B、BIC競争部門「アート」「ナラティブ」最終ノミネート" data-en="There is NO PLAN B, Final Nominee for BIC Competition Categories 'Art', 'Narrative'">There is NO PLAN B, BIC 경쟁 부분 '아트', '내러티브' 최종 노미네이트</div>
-                    </div>
-                    <div class="timeline-item prize">
-                        <div class="timeline-date">2024.08</div>
-                        <div class="timeline-content" data-kr="There is NO PLAN B, BIGEM 3기 지원 프로그램 선정(펄어비스)" data-jp="There is NO PLAN B、BIGEM 3期支援プログラム選定" data-en="There is NO PLAN B, Selected for BIGEM 3rd Term Support Program (Pearl Abyss)">There is NO PLAN B, BIGEM 3기 지원 프로그램 선정(펄어비스)</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2025.02</div>
-                        <div class="timeline-content" data-kr="광운대학교 게임콘텐츠학과, 산학협력 체결" data-jp="光雲大学校ゲームコンテンツ学科、産学協力締結" data-en="Signed Industry-Academia Cooperation with Kwangwoon University Game Content Department">광운대학교 게임콘텐츠학과, 산학협력 체결</div>
+            <div class="container contact-container">
+                <h3 data-kr="Contact" data-jp="お問い合わせ" data-en="Contact">Contact</h3>
+                <div class="contact-info">
+                    <div class="contact-links">
+                        <div class="contact-item">
+                            <a href="https://x.com/SuperWaveStudio" target="_blank" data-kr="X (Twitter)" data-jp="X (Twitter)" data-en="X (Twitter)">X (Twitter)</a>
+                        </div>
+                        <div class="contact-item">
+                            <a href="mailto:contact@superwavestudio.com">contact@superwavestudio.com</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section id="join-us" class="section">
-            <div class="container">
-                <h2 data-kr="JOIN US" data-jp="参加する" data-en="JOIN US">JOIN US</h2>
+            <div class="container joinus-container">
+                <h3 data-kr="Join us" data-jp="参加する" data-en="Join us">Join us</h3>
                 <div class="section-content game-introduction">
                     <p data-kr="저희와 함께 새로운 게임을 만들어갈 동료를 찾습니다." 
                     data-jp="私たちと一緒に新しいゲームを作る仲間を探しています。" 
                     data-en="We are looking for colleagues to create new games with us."
                     >
                     저희와 함께 새로운 게임을 만들어갈 동료를 찾습니다.</p>
-                </div>
-                <div class="contact-links">
-                    <div class="contact-item">
-                        <a href="https://superwave.com/careers" target="_blank" data-kr="채용 공고" data-jp="採用情報" data-en="Job Openings">채용 공고</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="contact" class="section">
-            <div class="container">
-                <h2 data-kr="CONTACT US" data-jp="お問い合わせ" data-en="CONTACT US">CONTACT US</h2>
-                <div class="contact-info">
-                    <div class="section-content game-introduction">
-                        <p data-kr="저희는 뭐에 관심 있습니다. 뭐 어쩌구 저쩌구면 연락주세요!" 
-                        data-jp="<strong>SuperWave</strong>はゲームを心から愛する開発者たちが集まって2023年に設立されました。プレイヤーが真に楽しめるゲームを作るという一念のもと、これまで様々なプロジェクトを開発しています。" 
-                        data-en="<strong>SuperWave</strong> was founded in 2023 by developers who truly love games. With the determination to create games that players can genuinely enjoy, we have been developing various projects."
-                        >
-                        관련 내용 적기</p>
-                    </div>
-                    
-                    <div class="contact-links">
-                        <div class="contact-item">
-                            <a href="mailto:contact@superwave.com">contact@superwave.com</a>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <a href="https://twitter.com/superwave_studio" target="_blank" data-kr="X (Twitter)" data-jp="X (Twitter)" data-en="X (Twitter)">X (Twitter)</a>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <a href="assets/presskit.zip" download data-kr="PressKit" data-jp="PressKit" data-en="PressKit">PressKit</a>
-                        </div>
-                    
-                    </div>
                 </div>
             </div>
         </section>

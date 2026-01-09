@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="https://unpkg.com/@esotericsoftware/spine-player@4.2.*/dist/spine-player.css">
+<div id="b-player"></div>
+<script src="./packages/@esotericsoftware/spine-webgl/dist/iife/spine-webgl.js"></script>
+<script src="./packages/@esotericsoftware/spine-player/dist/iife/spine-player.js"></script>
+<script>
+    const bPlayer = new spine.SpinePlayer("b-player", {
+        jsonUrl: "spine_resource/ScSave_B.json",
+        atlasUrl: "spine_resource/ScSave_B.atlas",
+        premultipliedAlpha: false,
+        animation: "Smoke_ing",
+        alpha: true,
+        showControls: true,
+        interactive: true, // Disable click and touch interactions
+    });
+    bPlayer.animationState.setAnimation(0, "Smoke_ing", true);
+    bPlayer.animationState.setAnimation(1, "Color_R", true);
+</script>
