@@ -53,6 +53,12 @@ function switchLanguage(lang) {
     }
   }
 
+  // 갤러리 스크린샷 업데이트
+  document.querySelectorAll('.gallery-image[data-is-lang-specific="true"]').forEach((img) => {
+    const screenshotId = img.getAttribute('data-screenshot-id');
+    img.src = `assets/screenshots/${lang}/${screenshotId}.jpg`;
+  });
+
   document.getElementById('languageDropdown').classList.remove('show');
   localStorage.setItem('selectedLanguage', lang);
 }
@@ -189,7 +195,13 @@ function initializeGallery() {
     } else if (item.type === 'image') {
       // 이미지
       const img = document.createElement('img');
-      img.src = `assets/screenshots/${item.filename}`;
+      if (item.isLangSpecific) {
+        img.src = `assets/screenshots/${currentLanguage}/${item.filename}`;
+        img.setAttribute('data-is-lang-specific', 'true');
+        img.setAttribute('data-screenshot-id', item.filename.split('.')[0]);
+      } else {
+        img.src = `assets/screenshots/${item.filename}`;
+      }
       img.alt = `게임 스크린샷 ${index + 1}`;
       img.className = 'gallery-image';
       slide.appendChild(img);
@@ -214,15 +226,14 @@ function getGalleryItems() {
   return [
     // 첫 번째 항목: 유튜브 영상
     { type: 'youtube', url: youtubeUrl },
-    // 나머지 이미지들
-    { type: 'image', filename: '0.jpg' },
-    { type: 'image', filename: '1.gif' },
-    { type: 'image', filename: '1.jpg' },
-    { type: 'image', filename: '2.jpg' },
-    { type: 'image', filename: '3.jpg' },
-    { type: 'image', filename: '4.jpg' },
-    { type: 'image', filename: '5.jpg' },
-    { type: 'image', filename: '6.jpg' }
+    // 공통 이미지들 (1, 2)
+    { type: 'image', filename: '1.jpg', isLangSpecific: false },
+    { type: 'image', filename: '2.jpg', isLangSpecific: false },
+    // 언어별 이미지들 (3, 4, 5, 6)
+    { type: 'image', filename: '3.jpg', isLangSpecific: true },
+    { type: 'image', filename: '4.jpg', isLangSpecific: true },
+    { type: 'image', filename: '5.jpg', isLangSpecific: true },
+    { type: 'image', filename: '6.jpg', isLangSpecific: true }
   ];
 }
 
