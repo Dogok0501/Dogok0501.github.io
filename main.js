@@ -12,7 +12,13 @@ const YOUTUBE_PV_URLS = {
 function switchLanguage(lang) {
   currentLanguage = lang;
 
-  // 버튼 활성화 상태 업데이트
+  // 버튼 및 모바일 버튼 텍스트 업데이트
+  const languageTexts = { kr: 'KR', jp: 'JP', en: 'EN', sc: 'SC', tc: 'TC' };
+  const mobileBtn = document.getElementById('mobileLangBtn');
+  if (mobileBtn) {
+    mobileBtn.textContent = languageTexts[lang] || lang.toUpperCase();
+  }
+
   document.querySelectorAll('.language-option').forEach(btn => {
     if (btn.getAttribute('data-lang') === lang) {
       btn.classList.add('active');
@@ -20,6 +26,12 @@ function switchLanguage(lang) {
       btn.classList.remove('active');
     }
   });
+
+  // 모바일 드롭다운 닫기
+  const languageList = document.getElementById('languageList');
+  if (languageList) {
+    languageList.classList.remove('show');
+  }
 
   // 설명 이미지 변경
   const heroDescImg = document.getElementById('heroDescImg');
@@ -73,6 +85,25 @@ document.querySelectorAll('.language-option').forEach((option) => {
     const lang = this.getAttribute('data-lang');
     switchLanguage(lang);
   });
+});
+
+// 모바일 언어 선택 토글
+const mobileLangBtn = document.getElementById('mobileLangBtn');
+if (mobileLangBtn) {
+  mobileLangBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    const languageList = document.getElementById('languageList');
+    languageList.classList.toggle('show');
+  });
+}
+
+// 외부 클릭 시 드롭다운 닫기
+document.addEventListener('click', function (event) {
+  const languageList = document.getElementById('languageList');
+  const mobileLangBtn = document.getElementById('mobileLangBtn');
+  if (languageList && mobileLangBtn && !languageList.contains(event.target) && !mobileLangBtn.contains(event.target)) {
+    languageList.classList.remove('show');
+  }
 });
 
 window.addEventListener('error', function (e) {

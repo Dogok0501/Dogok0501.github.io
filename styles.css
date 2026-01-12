@@ -228,6 +228,19 @@ nav {
     z-index: 1001;
 }
 
+.mobile-lang-btn {
+    display: none;
+    background: rgb(235, 235, 235);
+    border: 1px solid #e0e0e0;
+    color: #002047;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
 .language-list {
     display: flex;
     gap: 5px;
@@ -252,14 +265,38 @@ nav {
 }
 
 .language-option:hover {
-    border-color: #2a81a9;
-    color: #2a81a9;
+    border-color: #002047;
+    color: #002047;
 }
 
 .language-option.active {
-    background: #2a81a9;
+    background: #002047;
     color: #ffffff;
-    border-color: #2a81a9;
+    border-color: #002047;
+}
+
+@media (max-width: 768px) {
+    .mobile-lang-btn {
+        display: block;
+    }
+
+    .language-list {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        flex-direction: column;
+        margin-top: 5px;
+        min-width: 56px;
+    }
+
+    .language-list.show {
+        display: flex;
+    }
+    
+    .language-option {
+        width: 100%;
+    }
 }
 
 .hero { position: relative; padding: 4rem 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
