@@ -488,6 +488,17 @@ footer { background: #f5f5f5; color: #666; text-align: center; padding: 2rem 0; 
     .join-btn { min-width: 280px; padding: 1rem 1.5rem; font-size: 1rem; }
     .contact-links { gap: 0.8rem; }
     .contact-item { font-size: 1rem; }
+    
+    /* 섹션 텍스트 모바일 최적화 */
+    .section-content {
+        font-size: 1rem;
+        padding: 0 20px;
+    }
+    .game-introduction, .company-introduction {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
     /* 회사 로고 반응형 */
     .company-logo { max-width: 300px; }
     .timeline { --timeline-x: 60px; padding: 1rem; margin: 0 1rem; }
