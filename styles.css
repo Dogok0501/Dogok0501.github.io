@@ -243,6 +243,7 @@ nav {
 
 .language-list {
     display: flex;
+    flex-direction: column;
     gap: 5px;
     background: rgba(250, 250, 250, 0.95);
     padding: 5px;
@@ -335,10 +336,14 @@ nav {
 .presskit-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
 .presskit-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 32px; background: #ffffff; color: #34a853; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease; border: 2px solid #34a853; letter-spacing: 0.5px; }
 .presskit-btn::before { content: ''; width: 20px; height: 20px; background-image: url('assets/gd_icon_notlfs.png'); background-size: contain; background-repeat: no-repeat; background-position: center; flex-shrink: 0; }
+.contact-x-btn::before { content: ''; width: 20px; height: 20px; background-image: url('assets/x_logo.png'); background-size: contain; background-repeat: no-repeat; background-position: center; flex-shrink: 0; }
+.contact-email-btn::before { content: ''; width: 20px; height: 20px; background-image: url('assets/mail_icon.webp'); background-size: contain; background-repeat: no-repeat; background-position: center; flex-shrink: 0; }
 .presskit-btn:hover { background: #f5f5f5; border-color: #2d8f47; transform: translateY(-2px); }
 .presskit-btn:active { transform: translateY(0); }
-.streamer-kit-btn { background: #ffffff; border-color: #696969; color: #696969; }
-.streamer-kit-btn:hover { background: #f5f5f5; border-color: #2d8f47; color: #2d8f47; }
+.streamer-kit-btn, .contact-email-btn { background: #ffffff; border-color: #696969; color: #696969; }
+.contact-x-btn { background: #000000; border-color: #000000; color: #ffffff; }
+.streamer-kit-btn:hover, .contact-email-btn:hover { background: #f5f5f5; border-color: #2d8f47; color: #2d8f47; }
+.contact-x-btn:hover { background: #333333; border-color: #333333; color: #ffffff; }
 .presskit-btn-link { background: #ffffff; border-color: #696969; color: #696969; }
 .presskit-btn-link:hover { background: #f5f5f5; border-color: #2d8f47; color: #2d8f47; }
 
