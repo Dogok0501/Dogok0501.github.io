@@ -84,28 +84,20 @@ function switchLanguage(lang) {
     widget.style.display = widget.getAttribute('data-lang') === lang ? 'flex' : 'none';
   });
 
-  // 갤러리 유튜브 영상 업데이트
-  const galleryYoutube = document.querySelector('.gallery-youtube');
-  if (galleryYoutube) {
-    const youtubeUrl = YOUTUBE_PV_URLS[lang] || YOUTUBE_PV_URLS['en'];
-    const youtubeId = extractYoutubeId(youtubeUrl);
-    const embedUrl = `https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&origin=${window.location.origin}`;
-    
-    galleryYoutube.setAttribute('data-youtube-url', embedUrl);
-    galleryYoutube.setAttribute('data-youtube-id', youtubeId);
-    
-    // 현재 활성화된 슬라이드라면 src도 업데이트
-    if (galleryYoutube.parentElement.classList.contains('active')) {
-      galleryYoutube.src = embedUrl;
+  // 갤러리 유튜브 영상 업데이트 (HTML에 이미 존재하는 iframe들 제어)
+  document.querySelectorAll('.gallery-youtube').forEach(iframe => {
+    if (iframe.getAttribute('data-lang') === lang) {
+      iframe.style.display = 'block';
     } else {
-      galleryYoutube.src = ''; // 비활성 상태면 나중에 로드되도록 비움
+      iframe.style.display = 'none';
+      // 비활성화된 영상은 정지 시도 (API 로드된 경우)
+      if (youtubePlayers[iframe.id] && typeof youtubePlayers[iframe.id].pauseVideo === 'function') {
+        try {
+          youtubePlayers[iframe.id].pauseVideo();
+        } catch (e) {}
+      }
     }
-    
-    // 기존 플레이어 객체 제거
-    if (youtubePlayers[galleryYoutube.id]) {
-      delete youtubePlayers[galleryYoutube.id];
-    }
-  }
+  });
 
   // 갤러리 스크린샷 업데이트
   document.querySelectorAll('.gallery-image[data-is-lang-specific="true"]').forEach((img) => {
@@ -153,20 +145,21 @@ window.addEventListener('error', function (e) {
 window.onYouTubeIframeAPIReady = function() {
   // API가 로드된 후 이미 생성된 iframe에 대해 플레이어 초기화
   if (slides.length > 0) {
-    slides.forEach((slide, index) => {
-      const iframe = slide.querySelector('.gallery-youtube');
-      if (iframe && !youtubePlayers[iframe.id]) {
+    slides.forEach((slide) => {
+      slide.querySelectorAll('.gallery-youtube').forEach(iframe => {
         const iframeId = iframe.id;
-        if (iframe.src && iframe.src.includes('youtube.com')) {
-          youtubePlayers[iframeId] = new YT.Player(iframeId, {
-            events: {
-              'onReady': function(event) {
-                // 플레이어 준비 완료
+        if (!youtubePlayers[iframeId]) {
+          if (iframe.src && iframe.src.includes('youtube.com')) {
+            youtubePlayers[iframeId] = new YT.Player(iframeId, {
+              events: {
+                'onReady': function(event) {
+                  // 플레이어 준비 완료
+                }
               }
-            }
-          });
+            });
+          }
         }
-      }
+      });
     });
   }
 };
@@ -210,50 +203,13 @@ function initializeGallery() {
   const dotsContainer = document.getElementById('gallery-dots');
 
   const galleryItems = getGalleryItems();
-  if (galleryItems.length === 0) return;
-
+  
+  // 이미지들만 추가로 생성하여 붙임
   galleryItems.forEach((item, index) => {
-    const slide = document.createElement('div');
-    slide.className = `gallery-slide ${index === 0 ? 'active' : ''}`;
-    
-    if (item.type === 'youtube') {
-      // 유튜브 영상 임베드
-      const youtubeId = extractYoutubeId(item.url);
-      const iframe = document.createElement('iframe');
-      const embedUrl = `https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&origin=${window.location.origin}`;
-      iframe.src = index === 0 ? embedUrl : ''; // 첫 번째 슬라이드만 로드
-      iframe.className = 'gallery-youtube';
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-      iframe.allowFullscreen = true;
-      iframe.frameBorder = '0';
-      const iframeId = `youtube-iframe-${index}`;
-      iframe.id = iframeId;
-      // 원본 URL을 data 속성에 저장
-      iframe.setAttribute('data-youtube-url', embedUrl);
-      iframe.setAttribute('data-youtube-id', youtubeId);
-      slide.appendChild(iframe);
+    if (item.type === 'image') {
+      const slide = document.createElement('div');
+      slide.className = `gallery-slide`;
       
-      // YouTube IFrame API 플레이어 초기화 (첫 번째 슬라이드만, API가 로드된 경우)
-      if (index === 0 && typeof YT !== 'undefined' && YT.Player && iframe.src) {
-        // iframe이 로드될 때까지 약간의 지연 후 플레이어 초기화
-        setTimeout(() => {
-          if (iframe.src && !youtubePlayers[iframeId]) {
-            try {
-              youtubePlayers[iframeId] = new YT.Player(iframeId, {
-                events: {
-                  'onReady': function(event) {
-                    // 플레이어 준비 완료
-                  }
-                }
-              });
-            } catch (e) {
-              console.log('YouTube player initialization error:', e);
-            }
-          }
-        }, 100);
-      }
-    } else if (item.type === 'image') {
-      // 이미지
       const img = document.createElement('img');
       if (item.isLangSpecific) {
         img.src = `assets/screenshots/${currentLanguage}/${item.filename}`;
@@ -265,12 +221,12 @@ function initializeGallery() {
       img.alt = `게임 스크린샷 ${index + 1}`;
       img.className = 'gallery-image';
       slide.appendChild(img);
+      slider.appendChild(slide);
     }
-    
-    slider.appendChild(slide);
   });
 
   galleryItems.forEach((_, index) => {
+    // 유튜브 슬라이드가 인덱스 0이므로 +1 해서 도트 생성
     const dot = document.createElement('span');
     dot.className = `dot ${index === 0 ? 'active' : ''}`;
     dot.onclick = () => currentSlide(index + 1);
@@ -279,17 +235,19 @@ function initializeGallery() {
 
   slides = document.querySelectorAll('.gallery-slide');
   dots = document.querySelectorAll('.dot');
+
+  // API가 이미 로드되어 있다면 플레이어 초기화 트리거
+  if (typeof YT !== 'undefined' && YT.Player) {
+    window.onYouTubeIframeAPIReady();
+  }
 }
 
 function getGalleryItems() {
-  const youtubeUrl = YOUTUBE_PV_URLS[currentLanguage] || YOUTUBE_PV_URLS['en'];
   return [
-    // 첫 번째 항목: 유튜브 영상
-    { type: 'youtube', url: youtubeUrl },
-    // 공통 이미지들 (1, 2)
+    // 유튜브는 HTML에 직접 작성했으므로 이미지들만 반환
+    { type: 'youtube' }, // 도트 개수 유지를 위한 더미
     { type: 'image', filename: '1.jpg', isLangSpecific: false },
     { type: 'image', filename: '2.jpg', isLangSpecific: false },
-    // 언어별 이미지들 (3, 4, 5, 6)
     { type: 'image', filename: '3.jpg', isLangSpecific: true },
     { type: 'image', filename: '4.jpg', isLangSpecific: true },
     { type: 'image', filename: '5.jpg', isLangSpecific: true },
@@ -308,21 +266,17 @@ function getImageFiles() {
 }
 
 function showSlide(n) {
-  // 이전 슬라이드의 유튜브 영상 중단
+  // 이전 슬라이드의 모든 유튜브 영상 중단
   slides.forEach((slide, index) => {
     if (slide.classList.contains('active')) {
-      const iframe = slide.querySelector('.gallery-youtube');
-      if (iframe) {
+      slide.querySelectorAll('.gallery-youtube').forEach(iframe => {
         const iframeId = iframe.id;
-        // YouTube IFrame API를 사용하여 재생 중단
         if (youtubePlayers[iframeId] && typeof youtubePlayers[iframeId].pauseVideo === 'function') {
           try {
             youtubePlayers[iframeId].pauseVideo();
-          } catch (e) {
-            console.log('YouTube player pause error:', e);
-          }
+          } catch (e) {}
         }
-      }
+      });
     }
   });
 
@@ -336,36 +290,30 @@ function showSlide(n) {
   newSlide.classList.add('active');
   dots[currentSlideIndex].classList.add('active');
   
-  // 새 슬라이드가 유튜브 영상인 경우 로드
-  const iframe = newSlide.querySelector('.gallery-youtube');
-  if (iframe) {
+  // 새 슬라이드의 유튜브 영상들 처리
+  newSlide.querySelectorAll('.gallery-youtube').forEach(iframe => {
     const youtubeUrl = iframe.getAttribute('data-youtube-url');
     const youtubeId = iframe.getAttribute('data-youtube-id');
     const iframeId = iframe.id;
     
     if (youtubeUrl && youtubeId) {
-      // iframe이 비어있거나 다른 URL로 변경된 경우 원래 URL로 복원
       if (!iframe.src || !iframe.src.includes(youtubeId)) {
         iframe.src = youtubeUrl;
       }
       
-      // YouTube IFrame API 플레이어 초기화 (아직 초기화되지 않은 경우)
       if (!youtubePlayers[iframeId] && typeof YT !== 'undefined' && YT.Player) {
-        // iframe이 로드될 때까지 대기
-        iframe.addEventListener('load', function() {
-          if (!youtubePlayers[iframeId]) {
-            youtubePlayers[iframeId] = new YT.Player(iframeId, {
-              events: {
-                'onReady': function(event) {
-                  // 플레이어 준비 완료
-                }
-              }
-            });
-          }
-        }, { once: true });
+        if (iframe.style.display !== 'none') {
+          iframe.addEventListener('load', function() {
+            if (!youtubePlayers[iframeId]) {
+              youtubePlayers[iframeId] = new YT.Player(iframeId, {
+                events: { 'onReady': function(event) {} }
+              });
+            }
+          }, { once: true });
+        }
       }
     }
-  }
+  });
 }
 
 function changeSlide(n) { currentSlideIndex += n; showSlide(currentSlideIndex); }
