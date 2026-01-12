@@ -290,7 +290,7 @@ nav {
         right: 0;
         flex-direction: column;
         margin-top: 5px;
-        min-width: 100px;
+        min-width: 112px;
     }
 
     .language-list.show {

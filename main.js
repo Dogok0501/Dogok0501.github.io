@@ -43,6 +43,12 @@ function switchLanguage(lang) {
   const heroDescImg = document.getElementById('heroDescImg');
   if (heroDescImg) {
     heroDescImg.src = `assets/desc/desc_${lang}.png`;
+    // 언어가 en일 때만 높이를 3vh로 설정, 그 외에는 2vh
+    if (lang === 'en') {
+      heroDescImg.style.height = '2vh';
+    } else {
+      heroDescImg.style.height = '3vh';
+    }
   }
 
   document.querySelectorAll('[data-kr]').forEach((element) => {
