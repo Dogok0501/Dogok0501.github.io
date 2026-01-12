@@ -303,7 +303,7 @@ nav {
 .hero { position: relative; padding: 4rem 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
 .hero-logo { margin-bottom: 1rem; display: flex; justify-content: flex-end; }
 .hero-desc { display: flex; justify-content: flex-end; margin-bottom: 2rem; margin-right: 1%; }
-.hero-desc-img { height: 2vh; width: auto; transition: all 0.3s ease; }
+.hero-desc-img { height: 4vh; width: auto; transition: all 0.3s ease; }
 .hero-logo-img { height: 22vh; width: auto; transition: transform 0.3s ease; }
 .hero-logo-img:hover { transform: scale(1.05); }
 .hero-bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; aspect-ratio: 16 / 9; }
@@ -470,7 +470,7 @@ footer { background: #f5f5f5; color: #666; text-align: center; padding: 2rem 0; 
     .hero-content { position: relative; right: auto; top: auto; transform: none; width: 100%; text-align: center; padding: 0 20px; }
     .hero-logo { justify-content: center; margin-bottom: 0.5rem; }
     .hero-desc { justify-content: center; margin-bottom: 1.5rem; }
-    .hero-desc-img { height: 16px; }
+    .hero-desc-img { height: 2vh; }
     .hero-logo-img { height: 80px; }
     .hero p { font-size: 1.4rem; letter-spacing: 0.5px; }
     .steam-widget-section { padding: 2rem 0; }
