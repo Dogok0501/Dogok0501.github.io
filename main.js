@@ -11,9 +11,15 @@ const YOUTUBE_PV_URLS = {
 
 function switchLanguage(lang) {
   currentLanguage = lang;
-  const languageBtn = document.getElementById('languageBtn');
-  const languageTexts = { kr: 'KR', jp: 'JP', en: 'EN', sc: 'SC', tc: 'TC' };
-  languageBtn.textContent = languageTexts[lang] || lang.toUpperCase();
+
+  // 버튼 활성화 상태 업데이트
+  document.querySelectorAll('.language-option').forEach(btn => {
+    if (btn.getAttribute('data-lang') === lang) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
 
   // 설명 이미지 변경
   const heroDescImg = document.getElementById('heroDescImg');
@@ -59,27 +65,14 @@ function switchLanguage(lang) {
     img.src = `assets/screenshots/${lang}/${screenshotId}.jpg`;
   });
 
-  document.getElementById('languageDropdown').classList.remove('show');
   localStorage.setItem('selectedLanguage', lang);
 }
-
-document.getElementById('languageBtn').addEventListener('click', function () {
-  const dropdown = document.getElementById('languageDropdown');
-  dropdown.classList.toggle('show');
-});
 
 document.querySelectorAll('.language-option').forEach((option) => {
   option.addEventListener('click', function () {
     const lang = this.getAttribute('data-lang');
     switchLanguage(lang);
   });
-});
-
-document.addEventListener('click', function (event) {
-  const languageSelector = document.querySelector('.language-selector');
-  if (!languageSelector.contains(event.target)) {
-    document.getElementById('languageDropdown').classList.remove('show');
-  }
 });
 
 window.addEventListener('error', function (e) {
