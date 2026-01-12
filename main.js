@@ -4,8 +4,14 @@ let currentLanguage = 'kr';
 function switchLanguage(lang) {
   currentLanguage = lang;
   const languageBtn = document.getElementById('languageBtn');
-  const languageTexts = { kr: 'KR', jp: 'JP', en: 'EN' };
-  languageBtn.textContent = languageTexts[lang];
+  const languageTexts = { kr: 'KR', jp: 'JP', en: 'EN', sc: 'SC', tc: 'TC' };
+  languageBtn.textContent = languageTexts[lang] || lang.toUpperCase();
+
+  // 설명 이미지 변경
+  const heroDescImg = document.getElementById('heroDescImg');
+  if (heroDescImg) {
+    heroDescImg.src = `assets/desc/desc_${lang}.png`;
+  }
 
   document.querySelectorAll('[data-kr]').forEach((element) => {
     const text = element.getAttribute(`data-${lang}`);
@@ -70,7 +76,7 @@ window.onYouTubeIframeAPIReady = function() {
 
 document.addEventListener('DOMContentLoaded', function () {
   const savedLanguage = localStorage.getItem('selectedLanguage');
-  if (savedLanguage && ['kr', 'jp', 'en'].includes(savedLanguage)) {
+  if (savedLanguage && ['kr', 'jp', 'en', 'sc', 'tc'].includes(savedLanguage)) {
     switchLanguage(savedLanguage);
   } else {
     switchLanguage('kr');
