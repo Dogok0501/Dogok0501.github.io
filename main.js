@@ -12,16 +12,28 @@ const YOUTUBE_PV_URLS = {
 function switchLanguage(lang) {
   currentLanguage = lang;
   
+  // HTML lang 속성 업데이트
+  const langMap = {
+    kr: 'ko',
+    jp: 'ja',
+    en: 'en',
+    sc: 'zh-CN',
+    tc: 'zh-CN'
+  };
+  document.documentElement.lang = langMap[lang] || lang;
+  
   // 폰트 설정 업데이트
-  if (lang === 'sc' || lang === 'tc') {
+  if (lang === 'sc') {
     document.body.classList.add('lang-zh');
-    document.body.classList.remove('lang-jp');
+    document.body.classList.remove('lang-tc', 'lang-jp');
+  } else if (lang === 'tc') {
+    document.body.classList.add('lang-tc');
+    document.body.classList.remove('lang-zh', 'lang-jp');
   } else if (lang === 'jp') {
     document.body.classList.add('lang-jp');
-    document.body.classList.remove('lang-zh');
+    document.body.classList.remove('lang-zh', 'lang-tc');
   } else {
-    document.body.classList.remove('lang-zh');
-    document.body.classList.remove('lang-jp');
+    document.body.classList.remove('lang-zh', 'lang-tc', 'lang-jp');
   }
 
   // 버튼 및 모바일 버튼 텍스트 업데이트

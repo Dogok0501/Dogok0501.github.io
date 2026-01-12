@@ -57,6 +57,10 @@ body.lang-zh {
     font-family: 'MiSans', 'Pretendard', sans-serif;
 }
 
+body.lang-tc {
+    font-family: 'MiSans TC', 'Pretendard', sans-serif;
+}
+
 body.lang-jp {
     font-family: 'Pretendard JP', 'Pretendard', sans-serif;
 }
