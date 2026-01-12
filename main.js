@@ -1,6 +1,14 @@
 // 현재 언어 상태
 let currentLanguage = 'en';
 
+const YOUTUBE_PV_URLS = {
+  kr: 'https://youtu.be/NesuOj2yv0s',
+  jp: 'https://youtu.be/Qs5en3ha-TM',
+  en: 'https://youtu.be/f0XqAYuUwcQ',
+  tc: 'https://youtu.be/xmSGJOEm09w',
+  sc: 'https://youtu.be/yfXLDTOam4k'
+};
+
 function switchLanguage(lang) {
   currentLanguage = lang;
   const languageBtn = document.getElementById('languageBtn');
@@ -21,6 +29,29 @@ function switchLanguage(lang) {
   document.querySelectorAll('.steam-widget').forEach((widget) => {
     widget.style.display = widget.getAttribute('data-lang') === lang ? 'flex' : 'none';
   });
+
+  // 갤러리 유튜브 영상 업데이트
+  const galleryYoutube = document.querySelector('.gallery-youtube');
+  if (galleryYoutube) {
+    const youtubeUrl = YOUTUBE_PV_URLS[lang] || YOUTUBE_PV_URLS['en'];
+    const youtubeId = extractYoutubeId(youtubeUrl);
+    const embedUrl = `https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&origin=${window.location.origin}`;
+    
+    galleryYoutube.setAttribute('data-youtube-url', embedUrl);
+    galleryYoutube.setAttribute('data-youtube-id', youtubeId);
+    
+    // 현재 활성화된 슬라이드라면 src도 업데이트
+    if (galleryYoutube.parentElement.classList.contains('active')) {
+      galleryYoutube.src = embedUrl;
+    } else {
+      galleryYoutube.src = ''; // 비활성 상태면 나중에 로드되도록 비움
+    }
+    
+    // 기존 플레이어 객체 제거
+    if (youtubePlayers[galleryYoutube.id]) {
+      delete youtubePlayers[galleryYoutube.id];
+    }
+  }
 
   document.getElementById('languageDropdown').classList.remove('show');
   localStorage.setItem('selectedLanguage', lang);
@@ -179,9 +210,10 @@ function initializeGallery() {
 }
 
 function getGalleryItems() {
+  const youtubeUrl = YOUTUBE_PV_URLS[currentLanguage] || YOUTUBE_PV_URLS['en'];
   return [
     // 첫 번째 항목: 유튜브 영상
-    { type: 'youtube', url: 'https://www.youtube.com/watch?v=6R8PgTh6EW0' },
+    { type: 'youtube', url: youtubeUrl },
     // 나머지 이미지들
     { type: 'image', filename: '0.jpg' },
     { type: 'image', filename: '1.gif' },
