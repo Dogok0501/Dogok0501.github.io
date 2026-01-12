@@ -13,7 +13,13 @@ function switchLanguage(lang) {
   currentLanguage = lang;
 
   // 버튼 및 모바일 버튼 텍스트 업데이트
-  const languageTexts = { kr: 'KR', jp: 'JP', en: 'EN', sc: 'SC', tc: 'TC' };
+  const languageTexts = { 
+    kr: '한국어', 
+    jp: '日本語', 
+    en: 'English', 
+    sc: '简体中文', 
+    tc: '繁體中文' 
+  };
   const mobileBtn = document.getElementById('mobileLangBtn');
   if (mobileBtn) {
     mobileBtn.textContent = languageTexts[lang] || lang.toUpperCase();
