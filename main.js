@@ -1,5 +1,5 @@
 // 현재 언어 상태
-let currentLanguage = 'kr';
+let currentLanguage = 'en';
 
 function switchLanguage(lang) {
   currentLanguage = lang;
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (savedLanguage && ['kr', 'jp', 'en', 'sc', 'tc'].includes(savedLanguage)) {
     switchLanguage(savedLanguage);
   } else {
-    switchLanguage('kr');
+    switchLanguage('en');
   }
 
   initializeGallery();
