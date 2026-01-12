@@ -11,6 +11,18 @@ const YOUTUBE_PV_URLS = {
 
 function switchLanguage(lang) {
   currentLanguage = lang;
+  
+  // 폰트 설정 업데이트
+  if (lang === 'sc' || lang === 'tc') {
+    document.body.classList.add('lang-zh');
+    document.body.classList.remove('lang-jp');
+  } else if (lang === 'jp') {
+    document.body.classList.add('lang-jp');
+    document.body.classList.remove('lang-zh');
+  } else {
+    document.body.classList.remove('lang-zh');
+    document.body.classList.remove('lang-jp');
+  }
 
   // 버튼 및 모바일 버튼 텍스트 업데이트
   const languageTexts = { 
